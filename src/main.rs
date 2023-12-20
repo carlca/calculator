@@ -8,17 +8,8 @@ enum Number {
 }
 
 fn main() {
-    let operand1 = enter_operand("Operand 1: ");
-    let operand1 = match operand1 {
-        Number::Int(i) => i as f64,
-        Number::Float(f) => f,
-    };
-    let operand2 = enter_operand("Operand 2: ");
-    let operand2 = match operand2 {
-        Number::Int(i) => i as f64,
-        Number::Float(f) => f,
-    };
-
+    let operand1 = get_operand("Operand 1: ");
+    let operand2 = get_operand("Operand 2: ");
     let mut operator = enter_operator("Operator (+,-,*,/): ");
     match operator {
         '+' => println!("Result is: {}", operand1 + operand2),
@@ -33,6 +24,13 @@ fn main() {
             println!("Result is: {}", result)},
         _ => println!("Incorrect operator selected!")
     };
+}
+
+fn get_operand(prompt: &str) -> f64 {
+    match enter_operand(prompt) {
+        Number::Int(i) => i as f64,
+        Number::Float(f) => f,
+    }
 }
 
 fn enter_operand(prompt: &str) -> Number {
