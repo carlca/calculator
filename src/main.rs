@@ -1,9 +1,6 @@
-extern crate termion;
-
 use std::io;
 use std::io::Write;
-use termion::input::TermRead;
-use termion::event::Key;
+use console::Term;
 
 enum Number {
   Int(i32),
@@ -81,10 +78,6 @@ fn enter_operator(prompt: &str) -> Option<char> {
 }
 
 fn read_single_key() -> Option<char> {
-  let stdin = io::stdin();
-  let mut stdin_keys = stdin.lock().keys();
-  match stdin_keys.next().and_then(|result| result.ok()) {
-    Some(Key::Char(c)) => Some(c),
-    _ => None,
-  }
+  let term = Term::buffered_stdout();
+  term.read_char().ok()
 }
